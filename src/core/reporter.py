@@ -29,6 +29,8 @@ def generate_excel(df: pd.DataFrame, title: str = "Report") -> str:
 
     for row_idx, row in df.iterrows():
         for col_idx, value in enumerate(row, 1):
+            if isinstance(value, pd.Period):
+                value = str(value)
             ws.cell(row=row_idx + 2, column=col_idx, value=value)
 
     wb.save(str(path))

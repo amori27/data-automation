@@ -1,4 +1,3 @@
-import pandas as pd
 from src.core.extractor import from_csv
 
 
