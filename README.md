@@ -1,9 +1,5 @@
 # Data Automation
 
-[![CI/CD](https://github.com/amori27/data-automation/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/amori27/data-automation/actions)
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://python.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 > End-to-end data pipeline: extract from SQL/CSV, transform with Pandas, generate formatted Excel reports, and deliver via Email or Slack.
 
 ## Features
