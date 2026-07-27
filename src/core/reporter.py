@@ -1,4 +1,7 @@
-"""Excel report generation with openpyxl."""
+"""Excel report generation with openpyxl.
+
+Produces styled ``.xlsx`` files with coloured headers.
+"""
 
 from pathlib import Path
 from datetime import datetime
@@ -13,6 +16,17 @@ HEADER_FONT = Font(color="FFFFFF", bold=True)
 
 
 def generate_excel(df: pd.DataFrame, title: str = "Report") -> str:
+    """Write *df* to a timestamped Excel file under ``settings.report_dir``.
+
+    The first row contains bold, white-on-blue headers.
+
+    Args:
+        df: Data to write.
+        title: Sheet / file title prefix.
+
+    Returns:
+        Absolute path of the created ``.xlsx`` file.
+    """
     out_dir = Path(settings.report_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
