@@ -1,4 +1,8 @@
-"""Report delivery via Email and Slack."""
+"""Report delivery via Email and Slack.
+
+Provides SMTP-based email with optional attachments and Slack webhook
+notifications.
+"""
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -9,7 +13,23 @@ import httpx
 from src.core.config import settings
 
 
-def send_email(recipient: str, subject: str, body: str, attachment: str | None = None):
+def send_email(
+    recipient: str,
+    subject: str,
+    body: str,
+    attachment: str | None = None,
+) -> None:
+    """Send an email via SMTP with an optional file attachment.
+
+    Args:
+        recipient: Destination email address.
+        subject: Email subject line.
+        body: Plain-text email body.
+        attachment: Optional path to a file to attach.
+
+    Raises:
+        ValueError: If SMTP is not configured.
+    """
     if not all([settings.smtp_server, settings.smtp_user, settings.smtp_pass]):
         raise ValueError("SMTP not configured")
 
@@ -33,7 +53,16 @@ def send_email(recipient: str, subject: str, body: str, attachment: str | None =
         server.send_message(msg)
 
 
-def send_slack(message: str, webhook: str | None = None):
+def send_slack(message: str, webhook: str | None = None) -> None:
+    """Post a *message* to Slack via an incoming webhook.
+
+    Args:
+        message: Text payload.
+        webhook: Override webhook URL (falls back to ``settings.slack_webhook``).
+
+    Raises:
+        ValueError: If no webhook URL is available.
+    """
     url = webhook or settings.slack_webhook
     if not url:
         raise ValueError("Slack webhook not configured")
